@@ -51,7 +51,102 @@ async function handleLogin(event) {
     }
 }
 
+// Note Management Functions
+async function loadNotes() {
+    const response = await fetch('/notes');
+    const notes = await response.json();
+    const notesList = document.getElementById('notes-list');
+    notesList.innerHTML = notes.map(note => `
+        <div class="note-card" data-id="${note.id}">
+            <h3>${note.title}</h3>
+            <p>${note.content}</p>
+            <div class="note-actions">
+                <button onclick="editNote(${note.id})">Edit</button>
+                <button onclick="deleteNote(${note.id})">Delete</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showAddNoteForm() {
+    document.getElementById('note-form').classList.remove('hidden');
+    document.getElementById('note-form-title').textContent = 'Add Note';
+    document.getElementById('note-id').value = '';
+    document.getElementById('note-title').value = '';
+    document.getElementById('note-content').value = '';
+}
+
+function hideNoteForm() {
+    document.getElementById('note-form').classList.add('hidden');
+}
+
+async function handleSaveNote(event) {
+    event.preventDefault();
+    const id = document.getElementById('note-id').value;
+    const title = document.getElementById('note-title').value;
+    const content = document.getElementById('note-content').value;
+
+    const url = id ? `/notes/${id}` : '/notes';
+    const method = id ? 'PUT' : 'POST';
+
+    try {
+        const response = await fetch(url, {
+            method,
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, content })
+        });
+        
+        if (!response.ok) throw new Error('Failed to save note');
+        
+        hideNoteForm();
+        loadNotes();
+    } catch (error) {
+        console.error('Error saving note:', error);
+    }
+}
+
+async function editNote(id) {
+    const response = await fetch(`/notes/${id}`);
+    const note = await response.json();
+    
+    document.getElementById('note-form').classList.remove('hidden');
+    document.getElementById('note-form-title').textContent = 'Edit Note';
+    document.getElementById('note-id').value = id;
+    document.getElementById('note-title').value = note.title;
+    document.getElementById('note-content').value = note.content;
+}
+
+async function deleteNote(id) {
+    if (!confirm('Are you sure you want to delete this note?')) return;
+    
+    try {
+        const response = await fetch(`/notes/${id}`, { method: 'DELETE' });
+        if (!response.ok) throw new Error('Failed to delete note');
+        loadNotes();
+    } catch (error) {
+        console.error('Error deleting note:', error);
+    }
+}
+
+async function handleLogout() {
+    try {
+        await fetch('/auth/logout', { method: 'POST' });
+        showPage('landing-page');
+    } catch (error) {
+        console.error('Error logging out:', error);
+    }
+}
+
+// Load notes when dashboard is shown
+document.getElementById('dashboard').addEventListener('show', loadNotes);
+
 // Make functions globally available
 window.showPage = showPage;
 window.handleSignUp = handleSignUp;
 window.handleLogin = handleLogin;
+window.showAddNoteForm = showAddNoteForm;
+window.hideNoteForm = hideNoteForm;
+window.handleSaveNote = handleSaveNote;
+window.editNote = editNote;
+window.deleteNote = deleteNote;
+window.handleLogout = handleLogout;

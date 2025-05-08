@@ -61,6 +61,12 @@ app.delete('/notes/:id', async (req, res) => {
   res.json({ success: true });
 });
 
+app.post('/auth/logout', async (req, res) => {
+  const { error } = await supabase.auth.signOut();
+  if (error) return res.status(400).json({ error: error.message });
+  res.json({ success: true });
+});
+
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server running at http://0.0.0.0:${port}`);
 });
