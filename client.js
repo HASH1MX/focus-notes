@@ -86,6 +86,11 @@ async function handleSaveNote(event) {
     const title = document.getElementById('note-title').value;
     const content = document.getElementById('note-content').value;
 
+    if (!title.trim() || !content.trim()) {
+        alert('Please fill in both title and content');
+        return;
+    }
+
     const url = id ? `/notes/${id}` : '/notes';
     const method = id ? 'PUT' : 'POST';
 
@@ -96,12 +101,16 @@ async function handleSaveNote(event) {
             body: JSON.stringify({ title, content })
         });
         
-        if (!response.ok) throw new Error('Failed to save note');
+        if (!response.ok) {
+            const error = await response.json();
+            throw new Error(error.error || 'Failed to save note');
+        }
         
+        await loadNotes();
         hideNoteForm();
-        loadNotes();
     } catch (error) {
         console.error('Error saving note:', error);
+        alert('Failed to save note: ' + error.message);
     }
 }
 

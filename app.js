@@ -41,17 +41,34 @@ app.get('/notes', async (req, res) => {
 
 app.post('/notes', async (req, res) => {
   const { title, content } = req.body;
-  const { data, error } = await supabase.from('notes').insert([{ title, content }]);
+  const { data, error } = await supabase
+    .from('notes')
+    .insert([{ 
+      title, 
+      content,
+      created_at: new Date().toISOString()
+    }])
+    .select();
+    
   if (error) return res.status(400).json({ error: error.message });
-  res.json(data);
+  res.json(data[0]);
 });
 
 app.put('/notes/:id', async (req, res) => {
   const { id } = req.params;
   const { title, content } = req.body;
-  const { data, error } = await supabase.from('notes').update({ title, content }).eq('id', id);
+  const { data, error } = await supabase
+    .from('notes')
+    .update({ 
+      title, 
+      content,
+      updated_at: new Date().toISOString() 
+    })
+    .eq('id', id)
+    .select();
+    
   if (error) return res.status(400).json({ error: error.message });
-  res.json(data);
+  res.json(data[0]);
 });
 
 app.delete('/notes/:id', async (req, res) => {
