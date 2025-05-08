@@ -1,0 +1,131 @@
+Complete Frontend for Focus Notes App
+1. Landing Page:
+
+Title: "Focus Notes"
+
+A short description: "Save and organize your notes with ease."
+
+Buttons for:
+
+Sign Up (link to the sign-up form page).
+
+Log In (link to the login form page).
+
+2. Sign-Up Form (Page):
+
+Form fields:
+
+Email (input type: email)
+
+Password (input type: password)
+
+Sign Up button to submit the form.
+
+Client-Side Validation for:
+
+Email: Ensure it's a valid email format.
+
+Password: Ensure it has a minimum length (e.g., 8 characters).
+
+Error Messages:
+
+Show error messages if invalid input (e.g., if the email is not in correct format or password is too short).
+
+After Successful Sign-Up:
+
+Show a confirmation message ("Account created successfully!").
+
+Redirect the user to the login page.
+
+3. Login Form (Page):
+
+Form fields:
+
+Email (input type: email)
+
+Password (input type: password)
+
+Login button to submit the form.
+
+Error Messages for invalid login attempts (e.g., wrong email or password).
+
+After Successful Login:
+
+Redirect the user to their Notes Dashboard page.
+
+4. Notes Dashboard (After Login):
+
+Display a list of notes saved by the logged-in user.
+
+Each note should show:
+
+Title
+
+Body content
+
+Buttons for:
+
+Add New Note: Opens a form to create a new note.
+
+Edit Note: Allows the user to update an existing note.
+
+Delete Note: Deletes a note.
+
+Use Supabase for CRUD operations:
+
+Create a new note.
+
+Read and display saved notes.
+
+Update an existing note.
+
+Delete a note.
+
+Note fields: Each note should have a title and body content.
+
+The notes should be saved, updated, and deleted via Supabase.
+
+5. Supabase Integration:
+
+User Authentication:
+
+Use Supabase for handling Sign-Up and Log-In functionalities.
+
+Allow users to create accounts, log in, and manage sessions.
+
+After login, redirect users to the Notes Dashboard.
+
+Handle session management to keep users logged in using session tokens or cookies.
+
+CRUD Operations for Notes:
+
+Use Supabase client to save, retrieve, update, and delete notes.
+
+Ensure the notes are stored in the Supabase database.
+
+6. Styling:
+
+Use basic CSS for layout and design:
+
+Ensure the page layout is responsive for both mobile and desktop.
+
+Responsive Design:
+
+Make sure the forms and dashboard look good on all screen sizes.
+
+Minimal styling (just enough to make the app functional and clean).
+
+Final Request to Replit AI:
+Generate HTML, CSS, and JavaScript files needed for:
+
+A landing page with buttons linking to sign-up and log-in forms.
+
+A sign-up form with email/password validation.
+
+A log-in form with error messages for invalid logins.
+
+A notes dashboard to manage notes with buttons for add, edit, and delete.
+
+Integration with Supabase for user authentication and notes CRUD operations.
+
+Responsive design using basic CSS.
