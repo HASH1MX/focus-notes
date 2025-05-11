@@ -167,3 +167,30 @@ window.handleSaveNote = handleSaveNote;
 window.editNote = editNote;
 window.deleteNote = deleteNote;
 window.handleLogout = handleLogout;
+
+// THEME TOGGLE LOGIC
+const themeToggle = document.getElementById('theme-toggle');
+const body = document.body;
+
+function setTheme(dark) {
+    if (dark) {
+        body.classList.add('dark');
+        themeToggle.classList.add('dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        body.classList.remove('dark');
+        themeToggle.classList.remove('dark');
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+themeToggle.addEventListener('click', () => {
+    setTheme(!body.classList.contains('dark'));
+});
+
+// On load, set theme from localStorage
+(function() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') setTheme(true);
+    else setTheme(false);
+})();

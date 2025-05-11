@@ -410,3 +410,125 @@ textarea {
     font-size: 0.875rem;
     text-align: center;
 }
+
+/***** THEME TOGGLE BUTTON *****/
+.theme-toggle-wrapper {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    z-index: 1000;
+}
+#theme-toggle {
+    width: 56px;
+    height: 28px;
+    border: none;
+    border-radius: 999px;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    padding: 0 4px;
+    position: relative;
+}
+#theme-toggle.dark {
+    background: #181a23;
+    border: 2px solid #22232b;
+}
+.toggle-slider {
+    width: 24px;
+    height: 24px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    transition: transform 0.3s, background 0.3s, color 0.3s;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.10);
+    transform: translateX(0);
+}
+#theme-toggle.dark .toggle-slider {
+    background: #22232b;
+    color: #fff;
+    transform: translateX(28px);
+}
+
+/***** DARK THEME *****/
+body.dark {
+    --primary-color: #6366f1;
+    --primary-hover: #818cf8;
+    --secondary-color: #a1a1aa;
+    --success-color: #22d3ee;
+    --danger-color: #f87171;
+    --background-color: #181a23;
+    --card-background: #23263a;
+    --text-primary: #f3f4f6;
+    --text-secondary: #a1a1aa;
+    --border-color: #2d3147;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.25);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.25);
+    --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.25);
+    --gradient-primary: linear-gradient(135deg, #23263a 0%, #6366f1 100%);
+    --gradient-success: linear-gradient(135deg, #22d3ee 0%, #818cf8 100%);
+}
+
+body.dark {
+    background: linear-gradient(135deg, #181a23 0%, #23263a 100%);
+}
+
+body.dark .note-card,
+body.dark .form-container,
+body.dark .page {
+    background: var(--card-background);
+    color: var(--text-primary);
+    box-shadow: var(--shadow-md);
+}
+
+body.dark .feature-item {
+    background: rgba(99, 102, 241, 0.12);
+    color: var(--primary-color);
+}
+
+body.dark .primary-btn {
+    background: var(--gradient-primary);
+    color: #fff;
+}
+body.dark .secondary-btn {
+    background: #23263a;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+body.dark .secondary-btn:hover {
+    background: var(--primary-color);
+    color: #fff;
+}
+body.dark .add-note-btn {
+    background: var(--gradient-success);
+    color: #fff;
+}
+body.dark .logout-btn {
+    background: transparent;
+    color: var(--danger-color);
+    border: 2px solid var(--danger-color);
+}
+body.dark .logout-btn:hover {
+    background: var(--danger-color);
+    color: #fff;
+}
+body.dark input,
+body.dark textarea {
+    background: #181a23;
+    color: var(--text-primary);
+    border: 2px solid var(--border-color);
+}
+body.dark input:focus,
+body.dark textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+body.dark .note-card::before {
+    background: var(--gradient-primary);
+}
