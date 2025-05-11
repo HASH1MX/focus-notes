@@ -171,15 +171,20 @@ window.handleLogout = handleLogout;
 // THEME TOGGLE LOGIC
 const themeToggle = document.getElementById('theme-toggle');
 const body = document.body;
+const toggleSlider = themeToggle.querySelector('.toggle-slider');
 
 function setTheme(dark) {
     if (dark) {
         body.classList.add('dark');
         themeToggle.classList.add('dark');
+        toggleSlider.innerHTML = '<i class="fas fa-sun"></i>';
+        toggleSlider.querySelector('i').style.color = '#fff';
         localStorage.setItem('theme', 'dark');
     } else {
         body.classList.remove('dark');
         themeToggle.classList.remove('dark');
+        toggleSlider.innerHTML = '<i class="fas fa-moon"></i>';
+        toggleSlider.querySelector('i').style.color = '';
         localStorage.setItem('theme', 'light');
     }
 }
