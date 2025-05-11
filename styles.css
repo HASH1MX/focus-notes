@@ -532,3 +532,11 @@ body.dark textarea:focus {
 body.dark .note-card::before {
     background: var(--gradient-primary);
 }
+
+.buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 2rem;
+}
