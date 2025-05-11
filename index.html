@@ -7,83 +7,163 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="app">
         <!-- Landing Page -->
         <div id="landing-page" class="page">
-            <h1>Focus Notes</h1>
-            <p>Save and organize your notes with ease.</p>
-            <div class="buttons">
-                <button onclick="showPage('signup-page')">Sign Up</button>
-                <button onclick="showPage('login-page')">Log In</button>
+            <div class="hero-section">
+                <div class="logo">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h1>Focus Notes</h1>
+                <p class="hero-text">Organize your thoughts, boost your productivity</p>
+                <div class="features">
+                    <div class="feature-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure & Private</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-sync"></i>
+                        <span>Real-time Sync</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Access Anywhere</span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <button class="primary-btn" onclick="showPage('signup-page')">
+                        <i class="fas fa-user-plus"></i>
+                        Get Started
+                    </button>
+                    <button class="secondary-btn" onclick="showPage('login-page')">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Log In
+                    </button>
+                </div>
             </div>
         </div>
 
         <!-- Sign Up Page -->
         <div id="signup-page" class="page hidden">
-            <h2>Sign Up</h2>
-            <form id="signup-form" onsubmit="handleSignUp(event)">
-                <div class="form-group">
-                    <label for="signup-email">Email:</label>
-                    <input type="email" id="signup-email" required>
+            <div class="auth-container">
+                <div class="auth-header">
+                    <i class="fas fa-user-plus"></i>
+                    <h2>Create Account</h2>
                 </div>
-                <div class="form-group">
-                    <label for="signup-password">Password:</label>
-                    <input type="password" id="signup-password" required minlength="6">
-                </div>
-                <button type="submit">Sign Up</button>
-                <p class="error" id="signup-error"></p>
-                <p>Already have an account? <a href="#" onclick="showPage('login-page')">Log in</a></p>
-            </form>
+                <form id="signup-form" onsubmit="handleSignUp(event)">
+                    <div class="form-group">
+                        <label for="signup-email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input type="email" id="signup-email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="signup-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="signup-password" required minlength="6" placeholder="Create a password">
+                    </div>
+                    <button type="submit" class="primary-btn">
+                        <i class="fas fa-user-plus"></i>
+                        Sign Up
+                    </button>
+                    <p class="error" id="signup-error"></p>
+                    <p class="auth-switch">Already have an account? <a href="#" onclick="showPage('login-page')">Log in</a></p>
+                </form>
+            </div>
         </div>
 
         <!-- Login Page -->
         <div id="login-page" class="page hidden">
-            <h2>Log In</h2>
-            <form id="login-form" onsubmit="handleLogin(event)">
-                <div class="form-group">
-                    <label for="login-email">Email:</label>
-                    <input type="email" id="login-email" required>
+            <div class="auth-container">
+                <div class="auth-header">
+                    <i class="fas fa-sign-in-alt"></i>
+                    <h2>Welcome Back</h2>
                 </div>
-                <div class="form-group">
-                    <label for="login-password">Password:</label>
-                    <input type="password" id="login-password" required>
-                </div>
-                <button type="submit">Log In</button>
-                <p class="error" id="login-error"></p>
-                <p>Need an account? <a href="#" onclick="showPage('signup-page')">Sign up</a></p>
-            </form>
+                <form id="login-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input type="email" id="login-email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="login-password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="primary-btn">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Log In
+                    </button>
+                    <p class="error" id="login-error"></p>
+                    <p class="auth-switch">Need an account? <a href="#" onclick="showPage('signup-page')">Sign up</a></p>
+                </form>
+            </div>
         </div>
 
         <!-- Dashboard -->
         <div id="dashboard" class="page hidden">
             <header>
-                <h2>My Notes</h2>
-                <button onclick="handleLogout()">Logout</button>
+                <div class="header-left">
+                    <i class="fas fa-book-open"></i>
+                    <h2>My Notes</h2>
+                </div>
+                <button onclick="handleLogout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
             </header>
-            <button onclick="showAddNoteForm()" class="add-note-btn">Add New Note</button>
+            <button onclick="showAddNoteForm()" class="add-note-btn">
+                <i class="fas fa-plus"></i>
+                New Note
+            </button>
             <div id="notes-list"></div>
 
             <!-- Add/Edit Note Form -->
             <div id="note-form" class="hidden">
-                <h3 id="note-form-title">Add Note</h3>
-                <form onsubmit="handleSaveNote(event)">
-                    <input type="hidden" id="note-id">
-                    <div class="form-group">
-                        <label for="note-title">Title:</label>
-                        <input type="text" id="note-title" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="note-content">Content:</label>
-                        <textarea id="note-content" required></textarea>
-                    </div>
-                    <div class="form-buttons">
-                        <button type="submit">Save</button>
-                        <button type="button" onclick="hideNoteForm()">Cancel</button>
-                    </div>
-                </form>
+                <div class="form-container">
+                    <h3 id="note-form-title">
+                        <i class="fas fa-edit"></i>
+                        Add Note
+                    </h3>
+                    <form onsubmit="handleSaveNote(event)">
+                        <input type="hidden" id="note-id">
+                        <div class="form-group">
+                            <label for="note-title">
+                                <i class="fas fa-heading"></i>
+                                Title
+                            </label>
+                            <input type="text" id="note-title" required placeholder="Enter note title">
+                        </div>
+                        <div class="form-group">
+                            <label for="note-content">
+                                <i class="fas fa-align-left"></i>
+                                Content
+                            </label>
+                            <textarea id="note-content" required placeholder="Write your note here..."></textarea>
+                        </div>
+                        <div class="form-buttons">
+                            <button type="submit" class="primary-btn">
+                                <i class="fas fa-save"></i>
+                                Save
+                            </button>
+                            <button type="button" onclick="hideNoteForm()" class="secondary-btn">
+                                <i class="fas fa-times"></i>
+                                Cancel
+                            </button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

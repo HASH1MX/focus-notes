@@ -1,4 +1,3 @@
-
 // Page Navigation
 function showPage(pageId) {
     document.querySelectorAll('.page').forEach(page => page.classList.add('hidden'));
@@ -58,11 +57,20 @@ async function loadNotes() {
     const notesList = document.getElementById('notes-list');
     notesList.innerHTML = notes.map(note => `
         <div class="note-card" data-id="${note.id}">
-            <h3>${note.title}</h3>
+            <h3>
+                <i class="fas fa-sticky-note"></i>
+                ${note.title}
+            </h3>
             <p>${note.content}</p>
             <div class="note-actions">
-                <button onclick="editNote(${note.id})">Edit</button>
-                <button onclick="deleteNote(${note.id})">Delete</button>
+                <button onclick="editNote(${note.id})">
+                    <i class="fas fa-edit"></i>
+                    Edit
+                </button>
+                <button onclick="deleteNote(${note.id})">
+                    <i class="fas fa-trash"></i>
+                    Delete
+                </button>
             </div>
         </div>
     `).join('');
