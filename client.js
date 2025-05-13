@@ -35,6 +35,7 @@ async function handleLogin(event) {
     const email = document.getElementById('login-email').value;
     const password = document.getElementById('login-password').value;
     const errorElement = document.getElementById('login-error');
+    const rememberMe = document.getElementById('remember-me').checked;
 
     try {
         const response = await fetch('/auth/login', {
@@ -48,6 +49,11 @@ async function handleLogin(event) {
         
         // Store access token for authenticated requests
         accessToken = data.session?.access_token || data.access_token || data?.accessToken || null;
+        if (rememberMe && accessToken) {
+            localStorage.setItem('accessToken', accessToken);
+        } else {
+            localStorage.removeItem('accessToken');
+        }
         showPage('dashboard');
     } catch (error) {
         errorElement.textContent = error.message;
@@ -212,4 +218,13 @@ themeToggle.addEventListener('click', () => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') setTheme(true);
     else setTheme(false);
+})();
+
+// On page load, check for remembered access token
+(function() {
+    const savedToken = localStorage.getItem('accessToken');
+    if (savedToken) {
+        accessToken = savedToken;
+        showPage('dashboard');
+    }
 })();
