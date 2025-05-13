@@ -4,6 +4,8 @@ function showPage(pageId) {
     document.getElementById(pageId).classList.remove('hidden');
 }
 
+let accessToken = null;
+
 // Authentication Handlers
 async function handleSignUp(event) {
     event.preventDefault();
@@ -44,6 +46,8 @@ async function handleLogin(event) {
         
         if (!response.ok) throw new Error(data.error);
         
+        // Store access token for authenticated requests
+        accessToken = data.session?.access_token || data.access_token || data?.accessToken || null;
         showPage('dashboard');
     } catch (error) {
         errorElement.textContent = error.message;
@@ -52,7 +56,9 @@ async function handleLogin(event) {
 
 // Note Management Functions
 async function loadNotes() {
-    const response = await fetch('/notes');
+    const response = await fetch('/notes', {
+        headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}
+    });
     const notes = await response.json();
     const notesList = document.getElementById('notes-list');
     notesList.innerHTML = notes.map(note => `
@@ -105,7 +111,10 @@ async function handleSaveNote(event) {
     try {
         const response = await fetch(url, {
             method,
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                ...(accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {})
+            },
             body: JSON.stringify({ title, content })
         });
         
@@ -123,7 +132,9 @@ async function handleSaveNote(event) {
 }
 
 async function editNote(id) {
-    const response = await fetch(`/notes/${id}`);
+    const response = await fetch(`/notes/${id}`, {
+        headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}
+    });
     const note = await response.json();
     
     document.getElementById('note-form').classList.remove('hidden');
@@ -137,7 +148,10 @@ async function deleteNote(id) {
     if (!confirm('Are you sure you want to delete this note?')) return;
     
     try {
-        const response = await fetch(`/notes/${id}`, { method: 'DELETE' });
+        const response = await fetch(`/notes/${id}`, {
+            method: 'DELETE',
+            headers: accessToken ? { 'Authorization': `Bearer ${accessToken}` } : {}
+        });
         if (!response.ok) throw new Error('Failed to delete note');
         loadNotes();
     } catch (error) {
